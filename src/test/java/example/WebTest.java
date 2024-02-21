@@ -1,14 +1,11 @@
 package example;
 
-
-import example.pages.ConfProperties;
 import example.pages.WebElementsPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
 import java.time.Duration;
 
 
@@ -29,7 +26,7 @@ public class WebTest {
 
 
     @Test
-    public void webest1() {
+    public void webtest1() {
 
 
 
