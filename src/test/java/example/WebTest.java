@@ -1,8 +1,6 @@
 package example;
 
-
 import example.pages.WebElementsPage;
-
 import io.qameta.allure.Allure;
 import io.qameta.allure.Description;
 import io.qameta.allure.Step;
@@ -17,11 +15,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
 
 public class WebTest {
 

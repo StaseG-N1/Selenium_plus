@@ -1,6 +1,5 @@
 package example.pages;
 
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,10 +11,11 @@ import java.util.List;
 public class WebElementsPage {
 
     public WebDriver driver;
+
     public WebElementsPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver; }
-
+        this.driver = driver;
+    }
 
     @FindBy(how = How.XPATH, using = "//div[@class='tm-main-menu']")
     private WebElement mainMenu;
@@ -45,8 +45,5 @@ public class WebElementsPage {
     public List<WebElement> getPosts() {
         return posts;
     }
-
-
-
 
 }
