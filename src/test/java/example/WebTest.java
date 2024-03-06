@@ -1,9 +1,11 @@
 package example;
 
 
-
 import example.pages.WebElementsPage;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Description;
+import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -12,6 +14,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -33,18 +39,41 @@ public class WebTest {
     }
 
     @Test
+    @Description(value = "Тест проверяет открытие страницы и поиск на сайте")
     public void webtest1() {
-        assertTrue( webElementsPage.getMainMenu().isDisplayed(),"Верхнее меню сайта НЕ отображено на странице");
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        step1();
+        step2("тестирование");
+    }
+
+    @Step("Проверка открытия главной страницы сайта")
+    public void step1() {
+        assertTrue(webElementsPage.getMainMenu().isDisplayed(), "Верхнее меню сайта НЕ отображено на странице");
+        addScreenshot();
+    }
+
+    @Step("Проверка поска на сайте по ключевому слову '{text}'")
+    public void step2(String text) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         webElementsPage.getSerchIcon().click();
         wait.until(ExpectedConditions.visibilityOf(webElementsPage.getSerchField()));
-        webElementsPage.getSerchField().sendKeys("тестирование");
+        webElementsPage.getSerchField().sendKeys(text);
         webElementsPage.getSerchField().sendKeys(Keys.ENTER);
-        assertTrue( webElementsPage.getPosts().size() > 0,"Список постов НЕ отображен на странице");
- }
+        assertTrue(webElementsPage.getPosts().size() > 0, "Список постов НЕ отображен на странице");
+        addScreenshot();
+    }
 
     @AfterAll
     public static void close() {
-        driver.quit(); }
+        driver.quit();
+    }
+
+    private void addScreenshot() {
+        File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        try {
+            Allure.addAttachment("Screenshot", new FileInputStream(screenshotAs));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }
 
